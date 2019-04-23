@@ -1,8 +1,8 @@
-//-----------------------------------¡¾³ÌĞòËµÃ÷¡¿----------------------------------------------
-//		³ÌĞòÃû³Æ£ºÍ¼ÏñÆµÆ×ÌØÕ÷ÌáÈ¡ 
-//		¿ª·¢ËùÓÃIDE°æ±¾£ºVisual Studio 2017
-//   	¿ª·¢ËùÓÃOpenCV°æ±¾£º4.0.1
-//		±àÒëÈÕÆÚ£º2019Äê3ÔÂ27ÈÕ 
+//-----------------------------------ã€ç¨‹åºè¯´æ˜ã€‘----------------------------------------------
+//		ç¨‹åºåç§°ï¼šå›¾åƒé¢‘è°±ç‰¹å¾æå– 
+//		å¼€å‘æ‰€ç”¨IDEç‰ˆæœ¬ï¼šVisual Studio 2017
+//   	å¼€å‘æ‰€ç”¨OpenCVç‰ˆæœ¬ï¼š4.0.1
+//		ç¼–è¯‘æ—¥æœŸï¼š2019å¹´3æœˆ27æ—¥ 
 //----------------------------------------------------------------------------------------------
 
 
@@ -15,19 +15,19 @@ using namespace std;
 using namespace cv;
 
 
-Mat g_srcImage;//Ô­Ê¼Í¼
+Mat g_srcImage;//åŸå§‹å›¾
 static void SpectrumCharacteristic(Mat g_srcImage);
 
 
 int main()
 {
 	g_srcImage = imread("11.tif", 0);
-	if (!g_srcImage.data) { printf("Oh£¬no£¬ÔØÈëÍ¼Ïñ´íÎó£¡ \n"); return false; }
+	if (!g_srcImage.data) { printf("Ohï¼Œnoï¼Œè½½å…¥å›¾åƒé”™è¯¯ï¼ \n"); return false; }
 
-	namedWindow("¡¾ÔØÈëÍ¼Ïñ¡¿");
-	imshow("¡¾ÔØÈëÍ¼Ïñ¡¿", g_srcImage);
+	namedWindow("ã€è½½å…¥å›¾åƒã€‘");
+	imshow("ã€è½½å…¥å›¾åƒã€‘", g_srcImage);
 
-	namedWindow("¡¾ÆµÆ×ÌØÕ÷¡¿", 1);
+	namedWindow("ã€é¢‘è°±ç‰¹å¾ã€‘", 1);
 	SpectrumCharacteristic(g_srcImage);
 	waitKey(6000);
 	return 0;
@@ -35,17 +35,17 @@ int main()
 
 
 /*===================================================================
- * º¯ÊıÃû£ºSpectrumCharacteristic
- * ËµÃ÷£ºÉú³ÉÍ¼ÏñµÄ¶şÎ¬¸µÀïÒ¶±ä»»Í¼
- * ²ÎÊı£º
- *   Mat g_srcImage:  Ô´Í¼Ïñ
- * ·µ»ØÖµ£ºvoid
+ * å‡½æ•°åï¼šSpectrumCharacteristic
+ * è¯´æ˜ï¼šç”Ÿæˆå›¾åƒçš„äºŒç»´å‚…é‡Œå¶å˜æ¢å›¾
+ * å‚æ•°ï¼š
+ *   Mat g_srcImage:  æºå›¾åƒ
+ * è¿”å›å€¼ï¼švoid
  *------------------------------------------------------------------
  */
 static void SpectrumCharacteristic(Mat g_srcImage)
 {
 	Mat srcImage = g_srcImage;
-	if (!srcImage.data) { printf("¶ÁÈ¡Í¼Æ¬´íÎó£¬ÇëÈ·¶¨Ä¿Â¼ÏÂÊÇ·ñÓĞimreadº¯ÊıÖ¸¶¨Í¼Æ¬´æÔÚ£¡ \n"); }
+	if (!srcImage.data) { printf("è¯»å–å›¾ç‰‡é”™è¯¯ï¼Œè¯·ç¡®å®šç›®å½•ä¸‹æ˜¯å¦æœ‰imreadå‡½æ•°æŒ‡å®šå›¾ç‰‡å­˜åœ¨ï¼ \n"); }
 
 	int m = getOptimalDFTSize(srcImage.rows);
 	int n = getOptimalDFTSize(srcImage.cols);
@@ -68,10 +68,10 @@ static void SpectrumCharacteristic(Mat g_srcImage)
 	magnitudeImage = magnitudeImage(Rect(0, 0, magnitudeImage.cols & -2, magnitudeImage.rows & -2));
 	int cx = magnitudeImage.cols / 2;
 	int cy = magnitudeImage.rows / 2;
-	Mat q0(magnitudeImage, Rect(0, 0, cx, cy));   // ROIÇøÓòµÄ×óÉÏ
-	Mat q1(magnitudeImage, Rect(cx, 0, cx, cy));  // ROIÇøÓòµÄÓÒÉÏ
-	Mat q2(magnitudeImage, Rect(0, cy, cx, cy));  // ROIÇøÓòµÄ×óÏÂ
-	Mat q3(magnitudeImage, Rect(cx, cy, cx, cy)); // ROIÇøÓòµÄÓÒÏÂ
+	Mat q0(magnitudeImage, Rect(0, 0, cx, cy));   // ROIåŒºåŸŸçš„å·¦ä¸Š
+	Mat q1(magnitudeImage, Rect(cx, 0, cx, cy));  // ROIåŒºåŸŸçš„å³ä¸Š
+	Mat q2(magnitudeImage, Rect(0, cy, cx, cy));  // ROIåŒºåŸŸçš„å·¦ä¸‹
+	Mat q3(magnitudeImage, Rect(cx, cy, cx, cy)); // ROIåŒºåŸŸçš„å³ä¸‹
 	Mat tmp;
 	q0.copyTo(tmp);
 	q3.copyTo(q0);
@@ -82,6 +82,6 @@ static void SpectrumCharacteristic(Mat g_srcImage)
 
 	normalize(magnitudeImage, magnitudeImage, 0, 1, NORM_MINMAX);
 
-	imshow("¡¾ÆµÆ×ÌØÕ÷¡¿", magnitudeImage);
+	imshow("ã€é¢‘è°±ç‰¹å¾ã€‘", magnitudeImage);
 
 }
