@@ -1,8 +1,8 @@
-//-----------------------------------¡¾³ÌĞòËµÃ÷¡¿----------------------------------------------
-//		³ÌĞòÃû³Æ£ºÍ¼ÏñÍ³¼ÆÌØÕ÷ÌáÈ¡ 
-//		¿ª·¢ËùÓÃIDE°æ±¾£ºVisual Studio 2017
-//   	¿ª·¢ËùÓÃOpenCV°æ±¾£º4.0.1
-//		±àÒëÈÕÆÚ£º2019Äê3ÔÂ27ÈÕ 
+//-----------------------------------ã€ç¨‹åºè¯´æ˜ã€‘----------------------------------------------
+//		ç¨‹åºåç§°ï¼šå›¾åƒç»Ÿè®¡ç‰¹å¾æå– 
+//		å¼€å‘æ‰€ç”¨IDEç‰ˆæœ¬ï¼šVisual Studio 2017
+//   	å¼€å‘æ‰€ç”¨OpenCVç‰ˆæœ¬ï¼š4.0.1
+//		ç¼–è¯‘æ—¥æœŸï¼š2019å¹´3æœˆ27æ—¥ 
 //----------------------------------------------------------------------------------------------
 
 
@@ -15,21 +15,21 @@ using namespace std;
 using namespace cv;
 
 
-Mat g_srcImage;//Ô­Ê¼Í¼
+Mat g_srcImage;//åŸå§‹å›¾
 static void ShowImageHistgram(Mat g_srcImage);
 static void CalStatisticValue(Mat g_srcImage);
 
 
 int main()
 {
-	//ÊäÈë²¢ÏÔÊ¾Ô­Ê¼Í¼
+	//è¾“å…¥å¹¶æ˜¾ç¤ºåŸå§‹å›¾
 	g_srcImage = imread("11.tif", 0);
-	if (!g_srcImage.data) { printf("Oh£¬no£¬ÔØÈëÍ¼Ïñ´íÎó£¡ \n"); return false; }
+	if (!g_srcImage.data) { printf("Ohï¼Œnoï¼Œè½½å…¥å›¾åƒé”™è¯¯ï¼ \n"); return false; }
 
-	namedWindow("¡¾ÔØÈëÍ¼Ïñ¡¿");
-	imshow("¡¾ÔØÈëÍ¼Ïñ¡¿", g_srcImage);
+	namedWindow("ã€è½½å…¥å›¾åƒã€‘");
+	imshow("ã€è½½å…¥å›¾åƒã€‘", g_srcImage);
 
-	//¼ÆËãÍ³¼ÆÌØÕ÷
+	//è®¡ç®—ç»Ÿè®¡ç‰¹å¾
 	ShowImageHistgram(g_srcImage);
 	CalStatisticValue(g_srcImage);
 	waitKey();
@@ -38,18 +38,18 @@ int main()
 
 
 /*===================================================================
- * º¯ÊıÃû£ºShowImageHistgram
- * ËµÃ÷£ºÉú³ÉÒ»Î¬»Ò¶ÈÖ±·½Í¼
- * ²ÎÊı£º
- *   Mat g_srcImage:  Ô´Í¼Ïñ
- * ·µ»ØÖµ£ºvoid
+ * å‡½æ•°åï¼šShowImageHistgram
+ * è¯´æ˜ï¼šç”Ÿæˆä¸€ç»´ç°åº¦ç›´æ–¹å›¾
+ * å‚æ•°ï¼š
+ *   Mat g_srcImage:  æºå›¾åƒ
+ * è¿”å›å€¼ï¼švoid
  *------------------------------------------------------------------
  */
  static void ShowImageHistgram(Mat g_srcImage)
 {
-	//ÔØÈëÔ­Í¼
+	//è½½å…¥åŸå›¾
 	Mat srcImage = g_srcImage;
-	if (!srcImage.data) { cout << "¶ÁÈ¡Í¼Æ¬´íÎó£¬ÇëÈ·¶¨Ä¿Â¼ÏÂÊÇ·ñÓĞÖ¸¶¨Í¼Æ¬´æÔÚ£¡ \n" << endl; }
+	if (!srcImage.data) { cout << "è¯»å–å›¾ç‰‡é”™è¯¯ï¼Œè¯·ç¡®å®šç›®å½•ä¸‹æ˜¯å¦æœ‰æŒ‡å®šå›¾ç‰‡å­˜åœ¨ï¼ \n" << endl; }
 	MatND dstHist;
 	int dims = 1;
 	float hranges[] = { 0, 255 };
@@ -57,7 +57,7 @@ int main()
 	int size = 256;
 	int channels = 0;
 
-	//¼ÆËãÍ¼ÏñµÄÖ±·½Í¼
+	//è®¡ç®—å›¾åƒçš„ç›´æ–¹å›¾
 	calcHist(&srcImage, 1, &channels, Mat(), dstHist, dims, &size, ranges);
 	int scale = 1;
 
@@ -66,7 +66,7 @@ int main()
 	double maxValue = 0;
 	minMaxLoc(dstHist, &minValue, &maxValue, 0, 0);
 
-	//»æÖÆ³öÖ±·½Í¼
+	//ç»˜åˆ¶å‡ºç›´æ–¹å›¾
 	int hpt = saturate_cast<int>(0.9 * size);
 	for (int i = 0; i < 256; i++)
 	{
@@ -74,22 +74,22 @@ int main()
 		int realValue = saturate_cast<int>(binValue * hpt / maxValue);
 		rectangle(dstImage, Point(i*scale, size - 1), Point((i + 1)*scale - 1, size - realValue), Scalar(255));
 	}
-	imshow("Ò»Î¬»Ò¶ÈÖ±·½Í¼", dstImage);
+	imshow("ä¸€ç»´ç°åº¦ç›´æ–¹å›¾", dstImage);
 }
 
 /*===================================================================
- * º¯ÊıÃû£ºCalStatisticValue
- * ËµÃ÷£º¼ÆËãÍ³¼ÆÌØÕ÷Öµ
- * ²ÎÊı£º
- *   Mat g_srcImage:  Ô´Í¼Ïñ
- * ·µ»ØÖµ£ºvoid
+ * å‡½æ•°åï¼šCalStatisticValue
+ * è¯´æ˜ï¼šè®¡ç®—ç»Ÿè®¡ç‰¹å¾å€¼
+ * å‚æ•°ï¼š
+ *   Mat g_srcImage:  æºå›¾åƒ
+ * è¿”å›å€¼ï¼švoid
  *------------------------------------------------------------------
  */
 static void CalStatisticValue(Mat g_srcImage)
 {
 	Mat src = g_srcImage;
 
-	//¼ÆËã¾ùÖµÓë±ê×¼²î
+	//è®¡ç®—å‡å€¼ä¸æ ‡å‡†å·®
 	Mat mat_mean, mat_stddev;
 	meanStdDev(src, mat_mean, mat_stddev);
 
@@ -98,7 +98,7 @@ static void CalStatisticValue(Mat g_srcImage)
 	m = mat_mean.at<double>(0, 0);
 	s = mat_stddev.at<double>(0, 0);
 
-	//¼ÆËãÆ«¶ÈÓë·å¶È
+	//è®¡ç®—ååº¦ä¸å³°åº¦
 	Mat tmp;
 	src.convertTo(tmp, CV_32F);
 	float g, k;
@@ -116,11 +116,11 @@ static void CalStatisticValue(Mat g_srcImage)
 	}
 	k -= 3;
 	
-	//Êä³ö½á¹û
-	cout << "ÊäÈëÍ¼ÏñµÄÍ³¼ÆÌØĞÔÖµ£º" << endl;
-	cout << "	»Ò¶È¾ùÖµ£º" << m << endl;
-	cout << "	±ê×¼²î£º" << s << endl;
-	cout << "	Æ«¶È£º" << g << endl;
-	cout << "	·å¶È£º" << k << endl;
+	//è¾“å‡ºç»“æœ
+	cout << "è¾“å…¥å›¾åƒçš„ç»Ÿè®¡ç‰¹æ€§å€¼ï¼š" << endl;
+	cout << "	ç°åº¦å‡å€¼ï¼š" << m << endl;
+	cout << "	æ ‡å‡†å·®ï¼š" << s << endl;
+	cout << "	ååº¦ï¼š" << g << endl;
+	cout << "	å³°åº¦ï¼š" << k << endl;
 	
 }
